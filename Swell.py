@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from urllib2 import urlopen
 from HTMLParser import HTMLParser
-from WhatASwellMap.interfaces import SwellInfo
+from WhatASwellMap import SwellInfo
 import json
 
 BLACKS_URL = "http://www.surfline.com/surf-report/blacks-southern-california_4245/";
@@ -23,7 +23,7 @@ def getInfo(url):
 	soup = make_soup(url)
 	wave_range = soup.find(id="observed-wave-range")
 	conditions = soup.find(id="observed-spot-conditions")
-	return {'Wave Range': str(wave_range.get_text()), 'Conditions': str(conditions.get_text())}
+	return {'Wave Range': str(wave_range.get_text()), 'Conditions': str(conditions.get_text()), }
 	
 def make_soup(url):
 	html = urlopen(url).read()
