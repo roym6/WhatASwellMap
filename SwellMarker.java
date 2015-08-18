@@ -13,7 +13,7 @@ public class SwellMarker extends CommonMarker {
 	private String conditions;
 	private UnfoldingMap map;
 	
-	private static float PI = (float) 3.14;
+	private static float PI = 3.14f;
 
 	public SwellMarker(UnfoldingMap map, String name, Location location, Map<String,String> swellInfo) {
 		super(location);
@@ -26,20 +26,26 @@ public class SwellMarker extends CommonMarker {
 	@Override
 	public void drawMarker(PGraphics pg, float x, float y) {
 		ScreenPosition posLondon = this.getScreenPosition(map);
+		pg.pushStyle();
 		pg.strokeWeight(12);
 		pg.stroke(200, 0, 0, 200);
+		pg.strokeCap(pg.SQUARE);
 		pg.noFill();
 		float s = 44;
 		pg.arc(posLondon.x, posLondon.y, s, s, -PI * 0.9f, -PI * 0.1f);
 		pg.arc(posLondon.x, posLondon.y, s, s, PI * 0.1f, PI * 0.9f);
 		pg.fill(0);
-		pg.text(name, posLondon.x, posLondon.y + 4);
+		pg.text(name, posLondon.x - pg.textWidth(name) / 2, posLondon.y + 4);
+		pg.popStyle();
 	}
 
 	@Override
 	public void showTitle(PGraphics pg, float x, float y) {
-		// TODO Auto-generated method stub
-		
+		pg.pushStyle();
+		pg.fill(0);
+		pg.textSize(26);
+		pg.text(conditions, x, y, x+20, y+20);
+		pg.popStyle();
 	}
 
 

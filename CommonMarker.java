@@ -17,8 +17,10 @@ public abstract class CommonMarker extends SimplePointMarker {
 	}
 
 	public void draw(PGraphics pg, float x, float y) {
-		this.drawMarker(pg, x, y);
-		this.showTitle(pg, x, y);
+		drawMarker(pg, x, y);
+		if(this.isSelected()) {
+			this.showTitle(pg, x, y);
+		}
 	}
 
 	public abstract void drawMarker(PGraphics pg, float x, float y);

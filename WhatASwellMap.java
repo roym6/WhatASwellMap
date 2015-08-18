@@ -43,10 +43,10 @@ public class WhatASwellMap extends PApplet {
 	}
 	
 	public void getLocations() {
-		beachLocations.put("Blacks", new Location(32.878, -117.251));
-		beachLocations.put("HB North", new Location(33.655, -118.004));
-		beachLocations.put("Goldenwest", new Location(33.667, -118.018));
-		beachLocations.put("Porto", new Location(33.902, -118423));
+		beachLocations.put("Blacks", new Location(32.8780, -117.2526));
+		beachLocations.put("HB North", new Location(33.6553, -118.0087));
+		beachLocations.put("Goldenwest", new Location(33.6657, -118.0206));
+		beachLocations.put("Porto", new Location(33.902, -118.423));
 	}
 	
 	public void makeMarkers() {				
@@ -59,12 +59,24 @@ public class WhatASwellMap extends PApplet {
         Gson gson = new Gson();
         Map<String, Map<String,String>> obj = gson.fromJson(holder, mapOfStringObjectType);
 
-    	System.out.println(obj.keySet());
         for(String name : obj.keySet()) {
         	beachMarkers.add(new SwellMarker(map, name, beachLocations.get(name),obj.get(name)));
         }
 	}
 	
+	public void mouseMoved() {
+		selectMarkerIfHover(beachMarkers);
+	}
+	
+	public void selectMarkerIfHover(List<Marker> markerList ) {
+		for(Marker holder : markerList) {
+			if(holder.isInside(map, mouseX, mouseY)) {
+				holder.setSelected(true);
+			} else if(holder.isSelected()){
+				holder.setSelected(false);
+			}
+		}
+	}
 	
 	public void draw() {
 		map.draw();
